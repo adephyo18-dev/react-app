@@ -13,22 +13,46 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
 
-      const button = <button>Good job!</button>;
-      const paragraph = <p>This is a simple paragraph. {2 + 3}</p>;
-      const price = 10;
-      const div = (
-        <div>
-            {button}
-            {paragraph}
-            <p>Cotton socks</p>
-            <p>Price: ${price}</p>
-            <button>Add to Cart</button>
-        </div>
+
+
+      function Counter({ count, setCount }) {
+
+        function incrementCount() {
+          setCount(count + 1);
+        }
+        
+        return (
+          <button onClick={incrementCount}>
+            Clicked {count} 
+            {count <= 1 ? ' time' : ' times'}
+          </button>
         );
+      }
+
+      function App() {      
+
+        function resetCount() {
+          setCount(0);
+        }
+
+        const [count, setCount] = React.useState(0);
+
+        return (
+          (
+            <div>
+              <Counter count={count} setCount={setCount} />
+              <Counter count={count} setCount={setCount} />
+              <button onClick={resetCount}>
+                reset
+              </button>
+            </div>
+          )
+        );
+      }
 
       const container = document.querySelector('.js-container');
       ReactDOM.createRoot(container).render(
-        div
+        <App />
         
       );
     </script>
