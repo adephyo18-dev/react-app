@@ -2,6 +2,52 @@
 <html>
   <head>
     <title>React Basics</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 8px;
+      }   
+
+      .buttonon {
+        background-color: green;
+        color: white;
+      }
+
+      .buttonoff {
+        background-color: red;
+        color: white;
+      }
+
+      .login-container {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }      
+
+      .login-input {
+        padding: 5px;
+        font-size: 14px;
+        width: 200px;
+      }
+
+      .counter-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .counter-button {
+        padding: 5px 10px;
+        color: white;
+        background-color: rgb(25, 135, 84);
+      }
+
+
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
@@ -13,38 +59,111 @@
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
 
-
-
       function Counter({ count, setCount }) {
+
+        const interval = React.useRef(null);
 
         function incrementCount() {
           setCount(count + 1);
         }
+
+         function resetCount() {
+          setCount(0);
+        }
+
+
+        function increment() {
+          setCount(count + 1);
+        }
+
+        React.useEffect(() => {
+          interval.current = setInterval(increment, 1000);
+          return () => clearInterval(interval.current);
+        }, [count]);
         
         return (
-          <button onClick={incrementCount}>
-            Clicked {count} 
-            {count <= 1 ? ' time' : ' times'}
-          </button>
+          <div className="counter-container">
+            <button onClick={incrementCount} className="counter-button">
+              Clicked {count} 
+              {count <= 1 ? ' time' : ' times'}
+            </button>
+            <button onClick={resetCount} className="counter-button">
+              Reset
+            </button>
+            <button className="counter-button" onClick={increment}>Auto Click</button>
+          </div>
         );
       }
 
-      function App() {      
+      function OnOffButton(){
+        const [isOn, setIsOn] = React.useState(false);
 
-        function resetCount() {
-          setCount(0);
+        function toggle() {
+          setIsOn(!isOn);
         }
+        return (
+          <div>
+            <button onClick={toggle} 
+              className={isOn ? 'buttonon' : 'buttonoff'}>
+              {isOn ? 'On' : 'Off'}
+            </button>
+          </div>
+        );
+      }
+
+      function LogInComponent() {
+
+        const [showPassword, setShowPassword] = React.useState(false);
+
+        function toggleShowPassword() {
+          setShowPassword(!showPassword);
+        }
+
+        return (
+          <div className="login-container">
+            <p>Hello, welcome to my website</p>
+            <input 
+              type="text" 
+              placeholder="Email" 
+              className="login-input"/>
+              <div>
+                <input 
+                  type={showPassword ? 'text' : 'password'} 
+                  placeholder="Password" 
+                  className="login-input" />
+                <button
+                  className="show-password-button"
+                  onClick={toggleShowPassword}>
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
+
+            <button 
+              className="login-button">Log In
+            </button>
+            <button 
+              className="login-button">Sign Up
+            </button>
+          </div>
+        );
+      }
+
+      function AutoCounter({ count, setCount }) {
+
+       
+      }
+
+
+
+      function App() {       
 
         const [count, setCount] = React.useState(0);
 
         return (
           (
             <div>
+              <LogInComponent />              
               <Counter count={count} setCount={setCount} />
-              <Counter count={count} setCount={setCount} />
-              <button onClick={resetCount}>
-                reset
-              </button>
             </div>
           )
         );

@@ -86,6 +86,12 @@
           overflow: scroll;
           scrollbar-width: none;
         }
+
+        .chat-message-empty {
+          text-align: center;
+          color: #888;
+          margin-top: 20px;
+        }
     </style>
 
   </head>
@@ -123,6 +129,15 @@
             setChatMessages(newChatMessages);
 
             const response = await Chatbot.getResponseAsync(inputText);
+
+            {/* display spanner when loading response from robot */}
+              setChatMessages([
+                ...newChatMessages,
+                {
+                  message: '<img src="images/loading-spinner.gif"  />',
+                  sender: 'robot'
+                }
+              ]);
 
              setChatMessages([
               ...newChatMessages,
@@ -177,7 +192,8 @@
                         className="chat-message-avatar"
                         />
                     )}
-                    <div className="chat-message-text">
+                    <div className="chat-message-text">                    
+         
                       {message}
                     </div>
                     { sender === "user" && (
@@ -206,6 +222,11 @@
           return (
             <div className="chat-messages-container"
               ref={containerRef}>
+              {chatMessages.length === 0 && (
+                <div className="chat-message-empty">
+                  No messages yet.
+                </div>
+              )}
               {chatMessages.map((chat, index) => (
                 <ChatMessage 
                   key={index}
@@ -219,22 +240,7 @@
 
         function App() {      
 
-          const [chatMessages, setChatMessages] = React.useState([{
-            message: "Hello! How can I help you?",
-            sender: "user"
-          },
-          {
-            message: "I am a chatbot.",
-            sender: "robot"
-          },
-          {
-            message: "Goodbye!",
-            sender: "user"
-          },
-          {
-            message: "I am a chatbot.",
-            sender: "robot"
-          }]);
+          const [chatMessages, setChatMessages] = React.useState([]);
 
         return (
             <div className="app-container">
