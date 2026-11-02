@@ -1,13 +1,19 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Header from '../components/Header'
-import { products } from '../../starting-code/data/products'
 import './HomePage.css'
 
 
 export default function HomePage() {
 
-    fetch('http://localhost:3000/api/products')
-        .then(response => response.json())
-        .then(data => console.log(data))
+    const [productsData, setProductsData] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/products')
+            .then(response => setProductsData(response.data)
+        );
+    }, []);
+
     return (
         <>
             <title>Ecommerce Project </title>
@@ -15,7 +21,7 @@ export default function HomePage() {
             <Header />
             <div className="home-page">
                 <div className="products-grid">
-                    { products.map((product) => {
+                    { productsData.map((product) => {
                         return (
                             <div className="product-container" key={product.id}>
                                 <div className="product-image-container">
