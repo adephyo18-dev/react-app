@@ -3,12 +3,12 @@ import Header from '../components/Header'
 import './Orders.css'
 import { Link } from 'react-router'
 
-export default function OrderPage() {
+export default function OrderPage({ cartItems }) {
     return (
         <>
          <title>Orders</title>
          <link rel="icon" type="image/svg+xml" href="images/icons/orders-favicon.png" />
-            <Header />
+            <Header cartItems={cartItems} />
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>
 
