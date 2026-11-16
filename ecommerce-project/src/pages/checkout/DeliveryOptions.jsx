@@ -1,4 +1,5 @@
 import { formatMoney } from '../../utils/money'
+import dayjs from 'dayjs'
 
 export function DeliveryOptions({ deliveryOptions, item }) {
     return (
@@ -21,10 +22,10 @@ export function DeliveryOptions({ deliveryOptions, item }) {
                             name={`delivery-option-${item.productId}`} />
                         <div>
                             <div className="delivery-option-date">
-                                {option.estimatedDeliveryTime}
+                                {dayjs(option.estimatedDeliveryTimeMs).format('MMMM D, YYYY')}
                             </div>
                             <div className="delivery-option-price">
-                                {priceString}
+                                {`${priceString} `}
                             </div>
                         </div>
                     </div>

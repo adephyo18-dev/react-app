@@ -5,7 +5,7 @@ import './HomePage.css'
 import { ProductsGrid } from './ProductsGrid'
 
 
-export default function HomePage({ cartItems }) {
+export default function HomePage({ cartItems, loadCart }) {
 
     const [productsData, setProductsData] = useState([]);
 
@@ -23,7 +23,7 @@ export default function HomePage({ cartItems }) {
             <link rel="icon" type="image/svg+xml" href="images/icons/home-favicon.png" />
             <Header cartItems={cartItems} />
             <div className="home-page">
-                <ProductsGrid products={productsData} />
+                <ProductsGrid products={productsData} loadCart={loadCart} />
             </div>
         </>
     );
