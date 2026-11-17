@@ -16,7 +16,7 @@ export function OrdersGrid({ orders }) {
                                 </div>
                                 <div className="order-total">
                                     <div className="order-header-label">Total:</div>
-                                    <div>{formatMoney(order.totalCents)}</div>
+                                    <div>{formatMoney(order.totalCostCents)}</div>
                                 </div>
                             </div>
 
