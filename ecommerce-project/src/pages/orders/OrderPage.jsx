@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import './Orders.css'
 import { OrdersGrid } from './OrdersGrid'
 
-export default function OrderPage({ cartItems }) {
+export default function OrderPage({ cartItems, loadCart }) {
 
     const [orders, setOrders] = useState([]);
 
@@ -25,6 +25,7 @@ export default function OrderPage({ cartItems }) {
                 <div className="page-title">Your Orders</div>
                 <OrdersGrid
                     orders={orders}
+                    loadCart={loadCart}
                 />
             </div >
         </>

@@ -10,6 +10,8 @@ export default function CheckoutPage({ cartItems, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setPaymentSummary] = useState([]);
 
+    window.axios = axios;
+
     useEffect(() => {
 
         const fetchCheckOutData = async () => {
@@ -20,7 +22,7 @@ export default function CheckoutPage({ cartItems, loadCart }) {
             setPaymentSummary(response.data);
         }
         fetchCheckOutData();
-    }, [cartItems]);
+    }, [cartItems, loadCart]);
 
     return (
         <>

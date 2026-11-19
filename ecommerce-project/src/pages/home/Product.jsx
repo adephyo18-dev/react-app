@@ -5,6 +5,7 @@ import { formatMoney } from '../../utils/money'
 export function Product({ product, loadCart }) {
 
     const [quantity, setQuantity] = useState(1);
+    const [addedToCart, setAddedToCart] = useState(false);
 
     const addToCart = async () => {
         await axios.post('/api/cart-items', {
@@ -12,6 +13,7 @@ export function Product({ product, loadCart }) {
             quantity: quantity
         })
         await loadCart();
+        setAddedToCart(true);
     }
 
     const selectQuantity = e => {
@@ -43,7 +45,7 @@ export function Product({ product, loadCart }) {
             <div className="product-quantity-container">
                 <select value={quantity}
                     onChange={selectQuantity}>
-                        
+
                     {[...Array(10).keys()].map(i => (
                         <option value={i + 1} key={i + 1}>{i + 1}</option>
                     ))}
@@ -52,7 +54,10 @@ export function Product({ product, loadCart }) {
 
             <div className="product-spacer"></div>
 
-            <div className="added-to-cart">
+            <div className="added-to-cart" style={{ opacity: addedToCart ? '1' : '0' }}>
+                {addedToCart && setTimeout(() => {
+                    setAddedToCart(false);
+                }, 2000)}
                 <img src="images/icons/checkmark.png" />
                 Added
             </div>

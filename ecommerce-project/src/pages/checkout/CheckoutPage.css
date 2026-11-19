@@ -209,3 +209,8 @@
   margin-top: 20px;
   margin-bottom: 19px;
 }
+
+.checkout-page .product-quantity .cart-item-quantity {
+  width: 50px;
+  margin-right: 5px;
+}
